@@ -183,3 +183,51 @@ window.UNIVEP_DATA = {
     "evaluation": "RoboTwin Clean, equal-weight mean across 50 tasks"
   }
 };
+
+window.UNIVEP_DATA.realRobot = {
+  "tasks": [
+    {
+      "id": "drawer",
+      "name": "Drawer Cube Place"
+    },
+    {
+      "id": "pick",
+      "name": "Pick Two Cube"
+    },
+    {
+      "id": "stick",
+      "name": "Grab Stick"
+    },
+    {
+      "id": "mean",
+      "name": "Mean across tasks"
+    }
+  ],
+  "series": {
+    "v": [
+      24,
+      32,
+      38,
+      31.33
+    ],
+    "x": [
+      34,
+      34,
+      46,
+      38.0
+    ],
+    "xv": [
+      38,
+      34,
+      76,
+      49.33
+    ],
+    "u": [
+      52,
+      40,
+      84,
+      58.67
+    ]
+  },
+  "provenance": "Manuscript real-robot evaluation; same values as the on-page table."
+};

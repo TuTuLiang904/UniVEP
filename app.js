@@ -4,6 +4,9 @@
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const labels = {v:'V-pred', x:'X-pred', xv:'X / V-loss', u:'UniVEP', ux:'UniVEP–X'};
   const data = window.UNIVEP_DATA;
+  const config = window.UNIVEP_CONFIG || {};
+  $$('[data-resource="paper"]').forEach(a => {a.href=config.paperUrl || 'https://arxiv.org/';});
+  $$('[data-resource="code"]').forEach(a => {a.href=config.codeUrl || 'https://example.com/';});
 
   // The exact switch used in the manuscript; this is a mode selector, not a rollout simulation.
   const slider = $('#noise-level');
