@@ -25,3 +25,9 @@ All runtime assets use relative paths, so project subdirectories work. Keep the 
 - The original NFE vector figure and full numeric tables remain expandable.
 
 The animation approach was informed by PEAR's public project page (https://mit-han-lab.github.io/pear-blog/), implemented independently with UniVEP data.
+
+## November 19 update
+
+The manuscript teaser, method, noise analysis, action geometry and real-robot figures have been replaced. Body copy and results use the new two-versus-sixteen comparison. All prose and supporting labels enter in short, staggered scroll sequences. NFE tooltips and the numerical table show mean ± SD wherever the manuscript reports three seeds. Standard deviations are never fabricated for appendix-only points.
+
+Upload the complete contents of this ZIP to the repository root, including `editorial.css`, `text-motion.js` and the local font files. Keep the Paper URL in `config.js` as the arXiv placeholder until the final link is ready. No PDF is distributed.

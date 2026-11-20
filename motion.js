@@ -3,9 +3,25 @@
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const data = window.UNIVEP_DATA;
-  const names = {v:'V-pred', x:'X-pred', xv:'X-pred (V-loss)', u:'UniVEP', ux:'UniVEP–X'};
+  const names = {v:'V', x:'X', xv:'X–V', u:'UniVEP', ux:'UniVEP–X'};
   // Match the prediction-target colors of the manuscript's original NFE figure.
   const colors = {v:'#2563eb', x:'#0d9488', xv:'#7c3aed', u:'#e11d48', ux:'#d97706'};
+  // Fig. 1 / Fig. 2 bar fills, black edges and sparse / dense diagonal hatching.
+  // Texture keeps V and UniVEP distinct when they share the paper's teal fill.
+  const barStyles = {
+    v:{fill:'#45c9ba',spacing:8},
+    x:{fill:'#bcdffd'},
+    xv:{fill:'#b799e6',spacing:5},
+    u:{fill:'#45c9ba'}
+  };
+  function barDefs(prefix,keys) {
+    return `<defs>${keys.filter(k=>barStyles[k].spacing).map(k=>{
+      const {fill,spacing:s}=barStyles[k];
+      return `<pattern id="${prefix}-${k}" width="${s}" height="${s}" patternUnits="userSpaceOnUse"><rect width="${s}" height="${s}" fill="${fill}"/><path d="M-1,1L1,-1 M0,${s}L${s},0 M${s-1},${s+1}L${s+1},${s-1}" fill="none" stroke="#111" stroke-width=".85"/></pattern>`;
+    }).join('')}</defs>`;
+  }
+  const barFill=(prefix,k)=>barStyles[k].spacing?`url(#${prefix}-${k})`:barStyles[k].fill;
+  const barSwatch=(prefix,k)=>`<svg class="legend-bar" viewBox="0 0 28 20" aria-hidden="true">${barDefs(prefix,[k])}<rect x="1" y="2" width="26" height="16" fill="${barFill(prefix,k)}" stroke="#111" stroke-width="1.1"/></svg>`;
   const order = ['v','x','xv','u','ux'];
   const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
   document.documentElement.dataset.motionPreference=motionQuery.matches?'reduce':'no-preference';
@@ -39,11 +55,12 @@
     entries.forEach(e => {
       if (motionQuery.matches) {settle(e.target);return;}
       if (e.isIntersecting && e.intersectionRatio >= .2 && !e.target.classList.contains('is-in')) play(e.target);
-      else if (!e.isIntersecting && (e.boundingClientRect.bottom <= 0 || e.boundingClientRect.top >= innerHeight)) reset(e.target);
+      else if (e.target.dataset.motionKind!=='bars' && !e.isIntersecting && (e.boundingClientRect.bottom <= 0 || e.boundingClientRect.top >= innerHeight)) reset(e.target);
     });
   }, {threshold:[0,.2]}) : null;
   function register(el, group) {
     el.classList.add('motion-ready');
+    el.dataset.motionKind=group==='nfe'?'lines':'bars';
     if (!registry.has(group)) registry.set(group, []);
     registry.get(group).push(el);
     if (motionQuery.matches || !observer) settle(el);
@@ -101,6 +118,7 @@
     const measuredIndices=data.budgets.map((_,i)=>i).filter(i=>keys.some(k=>model.series[k][i]!=null));
     const x=n=>L+Math.log2(n)/4*(R-L), y=v=>B-(v-min)/(max-min)*(B-T);
     svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    svg.style.setProperty('--axis-font',compact?'18px':'14px');
     svg.setAttribute('data-y-domain',`${min},${max}`);
     svg.setAttribute('data-x-scale','log2');
     let html=`<title>${model.name}: measured success versus function evaluations</title><desc>RoboTwin Clean, 50 tasks. Y axis ${min} to ${max} percent. X axis is logarithmic. Use left and right arrow keys to inspect measured budgets.</desc><defs><clipPath id="nfe-clip-${key}"><rect x="${L-5}" y="${T-8}" width="${R-L+10}" height="${B-T+16}"/></clipPath></defs>`;
@@ -133,9 +151,9 @@
         if(show){c.setAttribute('cx',x(data.budgets[i]));c.setAttribute('cy',y(v));}
       });
       cursor.style.display='';cursor.setAttribute('visibility','visible');
-      tip.innerHTML=`<span class="tooltip-heading">${model.name} · NFE ${data.budgets[i]}</span>${rows.map(k=>`<span class="tooltip-row" style="--series-color:${colors[k]}"><i class="tooltip-dot"></i><span>${names[k]}</span><strong>${model.series[k][i].toFixed(2)}%</strong></span>`).join('')}`;
+      tip.innerHTML=`<span class="tooltip-heading">${model.name} · NFE ${data.budgets[i]}</span>${rows.map(k=>{const sd=model.sd?.[k]?.[i];return `<span class="tooltip-row" style="--series-color:${colors[k]}"><i class="tooltip-dot"></i><span>${names[k]}</span><strong>${model.series[k][i].toFixed(2)}${sd!=null?`<span class="tooltip-sd"> ± ${sd.toFixed(2)}</span>`:''}%</strong></span>`;}).join('')}${rows.some(k=>model.sd?.[k]?.[i]!=null)?'<span class="tooltip-context">Mean ± SD · three training seeds</span>':''}`;
       tip.hidden=false;placeTooltip(surface,tip,px,py);
-      if(speak)announcement.textContent=`NFE ${data.budgets[i]}. ${rows.map(k=>`${names[k]} ${model.series[k][i].toFixed(2)} percent`).join('; ')}.`;
+      if(speak)announcement.textContent=`NFE ${data.budgets[i]}. ${rows.map(k=>`${names[k]} ${model.series[k][i].toFixed(2)}${model.sd?.[k]?.[i]!=null?` plus or minus ${model.sd[k][i].toFixed(2)}`:''} percent`).join('; ')}.`;
     }
     function inspectPointer(e){
       const rect=svg.getBoundingClientRect(),vx=(e.clientX-rect.left)/rect.width*W;
@@ -192,29 +210,32 @@
   const robot=$('#robot-chart'),robotGrid=$('#robot-chart-grid');
   if(robot&&data.realRobot){
     const keys=['v','x','xv','u'];
-    $('#robot-legend').innerHTML=keys.map(k=>`<span style="--series-color:${colors[k]}"><i class="legend-line" aria-hidden="true"></i>${names[k]}</span>`).join('');
+    $('#robot-legend').innerHTML=keys.map(k=>`<span>${barSwatch('robot-key',k)}${names[k]}</span>`).join('');
     data.realRobot.tasks.forEach((task,ti)=>{
       const surface=document.createElement('article');surface.className='robot-chart-panel chart-surface';
-      const baseline=197,top=28,height=baseline-top;
-      let bars='';
-      [0,50,100].forEach(v=>{const y=baseline-v/100*height;bars+=`<line class="chart-gridline" x1="34" x2="232" y1="${y}" y2="${y}"/><text class="chart-tick" x="26" y="${y+5}" text-anchor="end">${v}</text>`;});
+      const baseline=208,top=30,height=baseline-top,prefix=`robot-${task.id}`;
+      let bars=barDefs(prefix,keys);
+      [0,50,100].forEach(v=>{const y=baseline-v/100*height;bars+=`${v?`<line class="paper-gridline" x1="35" x2="250" y1="${y}" y2="${y}"/>`:''}<line class="paper-tickmark" x1="35" x2="39" y1="${y}" y2="${y}"/><text class="paper-tick" x="27" y="${y+5}" text-anchor="end">${v}</text>`;});
+      bars+=`<path class="paper-axis" d="M35,22V208H255"/><path class="paper-axis-tip" d="M35,19l-3.5,7h7z M259,208l-7,-3.5v7z"/><text class="paper-unit" x="35" y="12">Success (%)</text><g class="paper-marks">`;
       keys.forEach((k,ki)=>{
-        const v=data.realRobot.series[k][ti],x=48+ki*46,y=baseline-v/100*height,delay=ki*55+ti*70;
-        bars+=`<rect class="robot-bar" tabindex="0" role="img" aria-label="${task.name}, ${names[k]}: ${v.toFixed(2)} percent" x="${x}" y="${y}" width="29" height="${baseline-y}" data-series="${k}" data-value="${v}" style="--series-color:${colors[k]};--delay:${delay}ms"/><text class="bar-number" x="${x+14.5}" y="${y-8}" style="--delay:${delay+500}ms">${fmt(v)}</text><text class="robot-bar-label" x="${x+14.5}" y="220">${['V','X','X / V','U'][ki]}</text>`;
+        const v=data.realRobot.series[k][ti],x=52+ki*49,y=baseline-v/100*height;
+        bars+=`<rect class="paper-bar robot-bar" tabindex="0" role="img" aria-label="${task.name}, ${names[k]}: ${v.toFixed(2)} percent" x="${x}" y="${y}" width="34" height="${baseline-y}" data-series="${k}" data-value="${v}" fill="${barFill(prefix,k)}"/><text class="bar-number" x="${x+17}" y="${y-7}">${fmt(v)}</text>`;
       });
-      surface.innerHTML=`<h4>${task.name}</h4><svg class="robot-chart" viewBox="0 0 244 231" role="group" aria-label="${task.name}: success rates, 0 to 100 percent">${bars}</svg><div class="chart-tooltip" role="tooltip" hidden></div>`;
+      bars+='</g>'+keys.map((k,ki)=>`<text class="paper-category" x="${69+ki*49}" y="232" text-anchor="middle">${names[k]}</text>`).join('');
+      surface.innerHTML=`<h4>${task.name}</h4><svg class="robot-chart paper-plot" viewBox="0 0 266 246" role="group" aria-label="${task.name}: success rates, 0 to 100 percent">${bars}</svg><div class="chart-tooltip" role="tooltip" hidden></div>`;
       robotGrid.appendChild(surface);
       const tip=$('.chart-tooltip',surface);robot.appendChild(tip);
       const close=()=>{tip.hidden=true;};cleanups.push(()=>{if(!surface.contains(document.activeElement))close();});
       $$('.robot-bar',surface).forEach(bar=>{
         function show(e){
           const r=robot.getBoundingClientRect(),br=bar.getBoundingClientRect();
-          tip.innerHTML=`<span class="tooltip-heading">${task.name}</span><span class="tooltip-row" style="--series-color:${colors[bar.dataset.series]}"><i class="tooltip-dot"></i><span>${names[bar.dataset.series]}</span><strong>${Number(bar.dataset.value).toFixed(2)}%</strong></span><span class="tooltip-context">${task.id==='mean'?'Mean across three tasks':'50 evaluation trials'}</span>`;
+          tip.innerHTML=`<span class="tooltip-heading">${task.name}</span><span class="tooltip-row tooltip-bar-row">${barSwatch('robot-tip-'+task.id,bar.dataset.series)}<span>${names[bar.dataset.series]}</span><strong>${Number(bar.dataset.value).toFixed(2)}%</strong></span><span class="tooltip-context">Four calls · ${task.id==='mean'?'mean across three tasks':'50 evaluation trials'}</span>`;
           tip.hidden=false;placeTooltip(robot,tip,e?.clientX?e.clientX-r.left:br.left-r.left,e?.clientY?e.clientY-r.top:br.top-r.top);
         }
         bar.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')show(e);});
         bar.addEventListener('pointerleave',()=>{if(document.activeElement!==bar)close();});
         bar.addEventListener('click',show);
+        bar.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
         bar.addEventListener('focus',()=>show());bar.addEventListener('blur',close);
       });
       register(surface,'robot');

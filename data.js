@@ -44,7 +44,41 @@ window.UNIVEP_DATA = {
           66.88
         ]
       },
-      "note": "At one evaluation, UniVEP reaches 61.36%, exceeding the strongest single-target result at 16 evaluations (59.96%). Training uses 50 Clean demonstrations per task."
+      "note": "With one X-only evaluation, jointly trained UniVEP reaches 61.36%, above the strongest sixteen-step single-target result (59.96%). Main-table values report mean ± SD over three training seeds. Training uses 50 Clean demonstrations per task.",
+      "sd": {
+        "v": [
+          0.82,
+          2.94,
+          0.24,
+          1.12,
+          null,
+          2.54
+        ],
+        "x": [
+          0.24,
+          1.04,
+          1.36,
+          0.88,
+          null,
+          1.18
+        ],
+        "xv": [
+          1.28,
+          2.82,
+          2.36,
+          3.34,
+          null,
+          2.8
+        ],
+        "u": [
+          0.26,
+          0.98,
+          2.42,
+          2.36,
+          null,
+          2.32
+        ]
+      }
     },
     "lila": {
       "name": "LiLa-WAM Full",
@@ -90,7 +124,49 @@ window.UNIVEP_DATA = {
           86.72
         ]
       },
-      "note": "With two evaluations, UniVEP reaches 85.96%, above the best single-target result at any measured budget (83.48%). Full training uses 50 Clean + 500 Randomized demonstrations per task."
+      "note": "Two X-only evaluations reach 85.96%, above the strongest sixteen-step single-target result (82.60%). Main-table values report mean ± SD over three training seeds; the ten-call appendix values are shown without SD. Full training uses 50 Clean + 500 Randomized demonstrations per task.",
+      "sd": {
+        "v": [
+          3.58,
+          3.62,
+          2.2,
+          1.42,
+          null,
+          0.18
+        ],
+        "x": [
+          2.88,
+          2.36,
+          1.72,
+          0.32,
+          null,
+          2.64
+        ],
+        "xv": [
+          2.22,
+          0.6,
+          3.36,
+          0.44,
+          null,
+          2.86
+        ],
+        "ux": [
+          2.36,
+          1.64,
+          0.58,
+          0.66,
+          null,
+          1.02
+        ],
+        "u": [
+          2.8,
+          2.76,
+          0.2,
+          3.26,
+          null,
+          0.32
+        ]
+      }
     },
     "fast": {
       "name": "FastWAM",
@@ -115,7 +191,7 @@ window.UNIVEP_DATA = {
           32.64,
           34.24,
           35.64,
-          35.0,
+          35,
           34.96,
           35.48
         ],
@@ -124,7 +200,7 @@ window.UNIVEP_DATA = {
           59.8,
           61.24,
           57.56,
-          57.0,
+          57,
           57.68
         ],
         "ux": [
@@ -136,7 +212,7 @@ window.UNIVEP_DATA = {
           66.32
         ]
       },
-      "note": "Architecture matters: UniVEP\u2013X improves over direct X, but V-prediction remains strongest at larger budgets. FastWAM retains a video expert pretrained for velocity prediction."
+      "note": "FastWAM is an important exception: velocity prediction remains strongest at larger budgets, while UniVEP–X improves on direct X. Its action pathway is coupled to a velocity-pretrained video model. Sweep and native-budget evaluations are separate."
     },
     "scratch": {
       "name": "FastWAM scratch",
@@ -178,56 +254,72 @@ window.UNIVEP_DATA = {
     }
   },
   "provenance": {
-    "source": "Latest manuscript, Table 3",
-    "file": "sections/empirical_investigation.tex",
-    "evaluation": "RoboTwin Clean, equal-weight mean across 50 tasks"
-  }
-};
-
-window.UNIVEP_DATA.realRobot = {
-  "tasks": [
-    {
-      "id": "drawer",
-      "name": "Drawer Cube Place"
-    },
-    {
-      "id": "pick",
-      "name": "Pick Two Cube"
-    },
-    {
-      "id": "stick",
-      "name": "Grab Stick"
-    },
-    {
-      "id": "mean",
-      "name": "Mean across tasks"
-    }
-  ],
-  "series": {
-    "v": [
-      24,
-      32,
-      38,
-      31.33
-    ],
-    "x": [
-      34,
-      34,
-      46,
-      38.0
-    ],
-    "xv": [
-      38,
-      34,
-      76,
-      49.33
-    ],
-    "u": [
-      52,
-      40,
-      84,
-      58.67
-    ]
+    "source": "November 19 manuscript, main NFE table and appendix sweeps",
+    "evaluation": "RoboTwin Clean, equal-weight mean across 50 tasks",
+    "uncertainty": "45 StarVLA/LiLa-WAM main-table values include standard deviations across three training seeds; no SD is inferred for other measurements."
   },
-  "provenance": "Manuscript real-robot evaluation; same values as the on-page table."
+  "realRobot": {
+    "tasks": [
+      {
+        "id": "drawer",
+        "name": "Drawer Cube Place"
+      },
+      {
+        "id": "pick",
+        "name": "Pick Two Cube"
+      },
+      {
+        "id": "stick",
+        "name": "Grab Stick"
+      },
+      {
+        "id": "mean",
+        "name": "Mean across tasks"
+      }
+    ],
+    "series": {
+      "v": [
+        24,
+        32,
+        38,
+        31.33
+      ],
+      "x": [
+        34,
+        34,
+        46,
+        38
+      ],
+      "xv": [
+        38,
+        34,
+        76,
+        49.33
+      ],
+      "u": [
+        52,
+        40,
+        84,
+        58.67
+      ]
+    },
+    "provenance": "November 19 manuscript real-robot evaluation. One multitask policy per recipe, identical four-call StarVLA controller, 50 trials per task.",
+    "evaluationNFE": 4
+  },
+  "efficiency": {
+    "policy": "LiLa-WAM Full",
+    "baseline": {
+      "recipe": "X–V",
+      "nfe": 16,
+      "success": 82.6,
+      "latencyMs": 100.98
+    },
+    "univep": {
+      "nfe": 2,
+      "success": 85.96,
+      "latencyMs": 23.16
+    },
+    "successGainPp": 3.36,
+    "latencyReductionPercent": 77.1
+  }
 };

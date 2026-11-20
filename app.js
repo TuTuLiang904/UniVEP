@@ -2,7 +2,7 @@
   'use strict';
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
-  const labels = {v:'V-pred', x:'X-pred', xv:'X / V-loss', u:'UniVEP', ux:'UniVEP–X'};
+  const labels = {v:'V', x:'X', xv:'X–V', u:'UniVEP', ux:'UniVEP–X'};
   const data = window.UNIVEP_DATA;
   const config = window.UNIVEP_CONFIG || {};
   $$('[data-resource="paper"]').forEach(a => {a.href=config.paperUrl || 'https://arxiv.org/';});
@@ -24,7 +24,7 @@
   slider.addEventListener('input', updateMode);
   updateMode();
 
-  // Original figures remain vector-sharp in the full-size viewer.
+  // Original vectors and high-resolution photographs share the full-size viewer.
   const dialog = $('#figure-dialog');
   let previousFocus;
   $$('[data-zoom]').forEach(button => button.addEventListener('click', () => {
@@ -55,8 +55,8 @@
     $$('.policy-tabs [role=tab]').forEach(tab => { const active=tab.dataset.policy===key; tab.setAttribute('aria-selected',String(active)); tab.tabIndex=active?0:-1; });
     $('#policy-panel').setAttribute('aria-labelledby',`tab-${key}`); $('#policy-note').textContent=model.note;
     const keys=['v','x','xv','u','ux'].filter(k=>model.series[k]);
-    let table=`<table class="results-table"><caption class="sr-only">Exact ${model.name} success rates in percent</caption><thead><tr><th scope="col">Recipe / NFE</th>${data.budgets.map(n=>`<th scope="col">${n}</th>`).join('')}</tr></thead><tbody>`;
-    keys.forEach(k=>{ table+=`<tr${k==='u'?' class="ours-row"':''}><th scope="row">${labels[k]}</th>`; model.series[k].forEach((v,i)=>{const best=v!=null && v===Math.max(...keys.map(q=>model.series[q][i]).filter(n=>n!=null));table+=`<td${best?' class="best"':''}>${v==null?'—':v.toFixed(2)}</td>`;});table+='</tr>';});
+    let table=`<table class="results-table"><caption class="sr-only">Exact ${model.name} success rates in percent. Standard deviation across three training seeds is included where reported.</caption><thead><tr><th scope="col">Recipe / NFE</th>${data.budgets.map(n=>`<th scope="col">${n}</th>`).join('')}</tr></thead><tbody>`;
+    keys.forEach(k=>{ table+=`<tr${k==='u'?' class="ours-row"':''}><th scope="row">${labels[k]}</th>`; model.series[k].forEach((v,i)=>{const best=v!=null && v===Math.max(...keys.map(q=>model.series[q][i]).filter(n=>n!=null)),sd=model.sd?.[k]?.[i];table+=`<td${best?' class="best"':''}>${v==null?'—':v.toFixed(2)+(sd!=null?`<span class="sd"> ± ${sd.toFixed(2)}</span>`:'')}</td>`;});table+='</tr>';});
     $('#nfe-table').innerHTML=table+'</tbody></table>';
   }
   $$('.policy-tabs [role=tab]').forEach(tab=>{
