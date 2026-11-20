@@ -14,7 +14,7 @@
     const sigma = Number(slider.value) / 100;
     const isX = sigma >= 0.5;
     $('#noise-output').textContent = `σ = ${sigma.toFixed(2)}`;
-    $('#noise-output').style.color = isX ? '#0d9488' : '#7860ef';
+    $('#noise-output').style.color = isX ? '#005950' : '#472d86';
     slider.style.accentColor = isX ? '#0d9488' : '#7860ef';
     $('#selected-mode').dataset.mode = isX ? 'x' : 'v';
     $('#mode-letter').textContent = isX ? 'X' : 'V';
@@ -24,23 +24,22 @@
   slider.addEventListener('input', updateMode);
   updateMode();
 
-  // Every paper figure is read directly from its original PDF.
+  // The anchor still opens the original PDF when JavaScript is unavailable.
   const dialog = $('#figure-dialog');
   let previousFocus;
-  $$('[data-zoom]').forEach(button => button.addEventListener('click', () => {
-    previousFocus = button;
-    const caption = button.dataset.caption || 'Original paper figure';
-    const frame = $('#dialog-pdf');
-    frame.dataset.pdf = button.dataset.zoom;
-    frame.setAttribute('role', 'img');
-    frame.setAttribute('aria-label', caption);
-    frame.style.aspectRatio = button.querySelector('[data-pdf]')?.style.aspectRatio || '1.8';
-    $('#dialog-title').textContent = caption;
-    $('#dialog-original').href = button.dataset.zoom;
+  $$('.image-button[data-caption]').forEach(link => link.addEventListener('click', event => {
+    if (!dialog.showModal || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    previousFocus = link;
+    const preview = link.querySelector('img');
+    const enlarged = $('#dialog-image');
+    enlarged.src = preview.src;
+    enlarged.alt = preview.alt;
+    $('#dialog-title').textContent = link.dataset.caption;
+    $('#dialog-original').href = link.href;
     dialog.showModal();
     document.body.style.overflow = 'hidden';
-    $('.dialog-pdf-wrap').scrollTo(0, 0);
-    window.UNIVEP_PDF?.refresh(frame);
+    $('.dialog-image-wrap').scrollTo(0, 0);
     $('#close-dialog').focus();
   }));
   $('#close-dialog').addEventListener('click', () => dialog.close());

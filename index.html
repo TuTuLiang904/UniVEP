@@ -14,15 +14,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="motion.css">
   <link rel="stylesheet" href="editorial.css">
-  <link rel="stylesheet" href="pdf-figures.css">
   <link rel="stylesheet" href="research-story.css">
-  <link rel="preload" href="assets/fonts/inter-tight-latin.ttf" as="font" type="font/ttf" crossorigin>
   <script src="config.js" defer></script>
   <script src="data.js" defer></script>
   <script src="app.js" defer></script>
   <script src="motion.js" defer></script>
   <script src="text-motion.js" defer></script>
-  <script type="module" src="pdf-figures.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -61,11 +58,10 @@
     </section>
 
     <section class="container overview" id="overview" aria-label="Project overview"><figure class="paper-figure teaser-figure">
-      <button class="image-button" data-zoom="assets/figures/teaser.pdf" data-caption="the UniVEP teaser" aria-label="Enlarge the UniVEP teaser">
-        <span class="pdf-page" data-pdf="assets/figures/teaser.pdf" role="img" aria-label="the UniVEP teaser" style="aspect-ratio:1016.75/540.0"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/teaser.pdf" target="_blank" rel="noopener" data-caption="the UniVEP teaser">
+        <img class="figure-preview" src="assets/figures/preview/teaser.webp" width="2797" height="1485" loading="eager" fetchpriority="high" alt="the UniVEP teaser">
+      </a>
       <figcaption><span class="caption-title">A study of action prediction.</span> From prediction targets and their noise-dependent behavior to efficient robot control. <a href="assets/figures/teaser.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/teaser.pdf" type="application/pdf"><a href="assets/figures/teaser.pdf">Open the original PDF</a></object></noscript>
     </figure></section>
 
     <section class="paper-section container" id="prediction-targets" aria-labelledby="targets-title">
@@ -77,26 +73,23 @@
       </div>
       <div class="path-equation" aria-label="The common path is z sub t equals one minus t times noise plus t times the clean action."><span class="equation"><i>z</i><sub>t</sub> = (1 − <i>t</i>)ε + <i>tx</i></span><p><i>t</i> runs from noise to clean action; σ = 1 − <i>t</i> is the remaining noise. Here velocity describes generation, rather than the robot’s physical joint speed.</p></div>
       <figure class="paper-figure path-figure" id="same-path-figure">
-      <button class="image-button" data-zoom="assets/figures/figure2.pdf" data-caption="endpoint and velocity prediction on the same path" aria-label="Enlarge endpoint and velocity prediction on the same path">
-        <span class="pdf-page" data-pdf="assets/figures/figure2.pdf" role="img" aria-label="endpoint and velocity prediction on the same path" style="aspect-ratio:747.71/453.56"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/figure2.pdf" target="_blank" rel="noopener" data-caption="endpoint and velocity prediction on the same path">
+        <img class="figure-preview" src="assets/figures/preview/figure2.webp" width="2804" height="1701" loading="lazy" decoding="async" alt="endpoint and velocity prediction on the same path">
+      </a>
       <figcaption><span class="caption-title">Endpoint and velocity prediction on the same path.</span> X estimates the clean endpoint, while V estimates the sample’s local direction. Gray segments mark each predictor’s endpoint error. <a href="assets/figures/figure2.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/figure2.pdf" type="application/pdf"><a href="assets/figures/figure2.pdf">Open the original PDF</a></object></noscript>
     </figure>
       <div class="objective-note"><h3>One more distinction: prediction versus supervision</h3><p>The study compares <strong>V</strong>, <strong>X</strong>, and <strong>X–V</strong>. X–V predicts the same endpoint as X and uses the same inference update; its training loss emphasizes low-noise endpoint errors with the weight 1/max(σ, 0.05)². This lets us separate the network’s output from the space in which it is supervised.</p></div>
       <details class="research-detail geometry-detail"><summary>Action geometry: what structure does the endpoint offer? <span aria-hidden="true">+</span></summary><div class="detail-body"><p>Across 50 RoboTwin tasks, clean action chunks concentrate their variation in fewer directions than velocity targets or Gaussian noise. Their mean participation ratio is 2.47, compared with 10.84 for velocity and 35.81 for noise.</p><figure class="paper-figure geometry-image">
-      <button class="image-button" data-zoom="assets/figures/fig01_action_geometry_all_metrics.pdf" data-caption="the structure of action, velocity, and noise targets" aria-label="Enlarge the structure of action, velocity, and noise targets">
-        <span class="pdf-page" data-pdf="assets/figures/fig01_action_geometry_all_metrics.pdf" role="img" aria-label="the structure of action, velocity, and noise targets" style="aspect-ratio:470.03/244.3"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/fig01_action_geometry_all_metrics.pdf" target="_blank" rel="noopener" data-caption="the structure of action, velocity, and noise targets">
+        <img class="figure-preview" src="assets/figures/preview/fig01_action_geometry_all_metrics.webp" width="2801" height="1456" loading="lazy" decoding="async" alt="the structure of action, velocity, and noise targets">
+      </a>
       <figcaption>Participation ratio, 99% energy rank, and TwoNN, averaged equally across tasks. <a href="assets/figures/fig01_action_geometry_all_metrics.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/fig01_action_geometry_all_metrics.pdf" type="application/pdf"><a href="assets/figures/fig01_action_geometry_all_metrics.pdf">Open the original PDF</a></object></noscript>
     </figure></div></details>
       <details class="research-detail geometry-detail"><summary>Further geometry checks <span aria-hidden="true">+</span></summary><div class="detail-body"><figure class="paper-figure ">
-      <button class="image-button" data-zoom="assets/figures/fig06_geometry_diagnostics.pdf" data-caption="the supplementary action-geometry diagnostics" aria-label="Enlarge the supplementary action-geometry diagnostics">
-        <span class="pdf-page" data-pdf="assets/figures/fig06_geometry_diagnostics.pdf" role="img" aria-label="the supplementary action-geometry diagnostics" style="aspect-ratio:816.82/278.06"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/fig06_geometry_diagnostics.pdf" target="_blank" rel="noopener" data-caption="the supplementary action-geometry diagnostics">
+        <img class="figure-preview" src="assets/figures/preview/fig06_geometry_diagnostics.webp" width="2803" height="954" loading="lazy" decoding="async" alt="the supplementary action-geometry diagnostics">
+      </a>
       <figcaption>Additional energy thresholds, local tangent variation, and residual measurements from the paper. <a href="assets/figures/fig06_geometry_diagnostics.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/fig06_geometry_diagnostics.pdf" type="application/pdf"><a href="assets/figures/fig06_geometry_diagnostics.pdf">Open the original PDF</a></object></noscript>
     </figure></div></details>
     </section>
 
@@ -107,40 +100,74 @@
         <div class="chart-header"><div><h3 id="nfe-title">Single-target policies on RoboTwin Clean</h3><p class="chart-subtitle">Mean success across 50 tasks · the same trained weights at every budget</p></div><button class="replay-button" type="button" data-replay="nfe" aria-label="Replay the baseline inference-budget curves">Replay</button></div>
         <div class="chart-legend" id="nfe-legend" aria-label="Single-target prediction recipes"></div>
         <div class="nfe-grid" id="nfe-grid"></div>
-        <p class="chart-hint" id="nfe-interaction-hint">Hover or tap for exact values and reported standard deviations · Select a legend item to compare targets<span class="sr-only">. Focus a chart and use the left and right arrow keys to inspect budgets.</span></p>
-        <figcaption class="chart-caption">V, X, and X–V only. Means and standard deviations come from three training seeds. Both panels use the main-table budgets 1, 2, 4, 8, and 16; each has its own labeled success range.</figcaption>
+        <p class="chart-hint" id="nfe-interaction-hint">Hover or tap a point for exact values. Select a legend item to isolate a target<span class="sr-only">. Focus a chart and use the left and right arrow keys to inspect budgets.</span></p>
+        <figcaption class="chart-caption">Mean ± SD across three training seeds. Each panel uses its own success-rate scale.</figcaption>
       </figure>
-      <div class="table-scroll baseline-one-call"><table class="results-table"><caption>With one network evaluation · success (%)</caption><thead><tr><th scope="col">Policy</th><th scope="col">V</th><th scope="col">X</th><th scope="col">X–V</th></tr></thead><tbody><tr><th scope="row">StarVLA</th><td>35.92</td><td>40.52</td><td class="best">55.56</td></tr><tr><th scope="row">LiLa-WAM Full</th><td>67.40</td><td>73.36</td><td class="best">80.12</td></tr></tbody></table></div>
-      <div class="finding-pair"><article><h3>Few calls favor weighted endpoints.</h3><p>X–V leads the single-target recipes at one and two evaluations on both StarVLA and LiLa-WAM. Predicting an endpoint is particularly effective when the sampler has little time to refine it.</p></article><article><h3>More calls help velocity.</h3><p>StarVLA V improves from 35.92% at one call to 53.84% at sixteen, while direct X changes from 40.52% to 42.52%. On LiLa-WAM, V approaches X–V by eight calls: 82.84% versus 82.56%.</p></article></div>
+      <div class="finding-pair">
+        <article class="evidence-card endpoint-evidence">
+          <p class="finding-label">1–2 evaluations</p>
+          <h3>X–V leads at low budgets</h3>
+          <dl class="evidence-values">
+            <div><dt>StarVLA</dt><dd>55.56%</dd></div>
+            <div><dt>LiLa-WAM Full</dt><dd>80.12%</dd></div>
+          </dl>
+          <p>With one evaluation, X–V reaches these success rates on RoboTwin Clean. It also leads V and X at two evaluations in both policies.</p>
+        </article>
+        <article class="evidence-card velocity-evidence">
+          <p class="finding-label">1 to 16 evaluations</p>
+          <h3>V gains as the budget grows</h3>
+          <p class="evidence-value">35.92% <span>→</span> 53.84%</p>
+          <p>StarVLA’s success with V rises by 17.92 percentage points. Direct X moves from 40.52% to 42.52%. At eight evaluations, LiLa-WAM V and X–V reach 82.84% and 82.56%.</p>
+        </article>
+      </div>
+      <details class="research-detail baseline-detail">
+        <summary>One-evaluation results for all three targets <span aria-hidden="true">+</span></summary>
+        <div class="detail-body"><div class="table-scroll baseline-one-call"><table class="results-table"><caption>RoboTwin Clean success at one evaluation (%)</caption><thead><tr><th scope="col">Policy</th><th scope="col">V</th><th scope="col">X</th><th scope="col">X–V</th></tr></thead><tbody><tr><th scope="row">StarVLA</th><td>35.92</td><td>40.52</td><td class="best">55.56</td></tr><tr><th scope="row">LiLa-WAM Full</th><td>67.40</td><td>73.36</td><td class="best">80.12</td></tr></tbody></table></div></div>
+      </details>
       <details class="research-detail architecture-detail"><summary>Architecture and pretraining change this ranking <span aria-hidden="true">+</span></summary><div class="detail-body"><p>FastWAM’s velocity-pretrained configuration favors V at its native ten-call budget: 73.24% success, compared with 65.88% for X and 34.20% for X–V. Resetting only the action expert raises X–V to 64.48%, while V remains strongest at 71.56%. The pretrained video pathway is retained.</p><p class="small-note">These native-budget runs use separate rollouts from the inference-budget sweep. Within each policy, architecture, data, and update budgets are matched. On RoboTwin, StarVLA and FastWAM use 50 Clean demonstrations per task; LiLa-WAM Full uses 50 Clean + 500 Randomized demonstrations.</p></div></details>
-      <p class="research-transition">The ranking changes with the budget. To understand why, we next look inside generation: does the same prediction target remain useful from heavy noise to an almost-clean action?</p>
+      <p class="research-transition">Could the gaps come from what each target predicts well at different levels of noise?</p>
     </section>
 
     <section class="noise-band" id="noise-stages" aria-labelledby="noise-title" data-paper-section="4.3"><div class="container paper-section">
       <div class="section-heading"><p class="section-kicker">Prediction behavior across noise stages</p><h2 id="noise-title">What changes as the noise fades?</h2></div>
       <p class="section-intro">The task-success curves suggest different strengths. We probe predictions at matched observations and noise levels to distinguish recovering an action from noise from refining one that is already nearly correct.</p>
       <figure class="paper-figure noise-evidence">
-      <button class="image-button" data-zoom="assets/figures/fig02_noise_regimes_arxiv.pdf" data-caption="prediction behavior across noise stages" aria-label="Enlarge prediction behavior across noise stages">
-        <span class="pdf-page" data-pdf="assets/figures/fig02_noise_regimes_arxiv.pdf" role="img" aria-label="prediction behavior across noise stages" style="aspect-ratio:814.79/250.21"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/fig02_noise_regimes_arxiv.pdf" target="_blank" rel="noopener" data-caption="prediction behavior across noise stages">
+        <img class="figure-preview" src="assets/figures/preview/fig02_noise_regimes_arxiv.webp" width="2796" height="859" loading="lazy" decoding="async" alt="prediction behavior across noise stages">
+      </a>
       <figcaption><span class="caption-title">Prediction behavior across noise stages.</span> (a) V/X output-variance ratios from pure noise. (b) Endpoint MSE relative to the corrupted input at σ = 0.01. (c) Recovery across noise levels on StarVLA Randomized. Intervals and bands are the original 95% bootstrap intervals. <a href="assets/figures/fig02_noise_regimes_arxiv.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/fig02_noise_regimes_arxiv.pdf" type="application/pdf"><a href="assets/figures/fig02_noise_regimes_arxiv.pdf">Open the original PDF</a></object></noscript>
     </figure>
-      <div class="finding-pair noise-findings"><article><p class="finding-label">High noise</p><h3>Endpoints are more stable.</h3><p>When only the initial noise changes, X produces more consistent endpoint estimates in all six policy/split settings. V must also cancel the input noise. On StarVLA Clean, the variance of endpoints reconstructed from V is 120.74 times that of X-predicted endpoints.</p></article><article><p class="finding-label">Near-clean actions</p><h3>Velocity makes a useful correction.</h3><p>At σ = 0.01 on StarVLA Randomized, V leaves 0.334 times the input error. Pure X leaves 52.1 times the input error: replacing an already accurate chunk can overwrite useful information.</p></article></div>
-      <div class="residual-explanation"><span class="equation" aria-label="Velocity-induced endpoint error is sigma times the velocity prediction error.">x̂<sub>V</sub> − <i>x</i> = σ(v̂ − <i>v</i>)</span><p>Velocity reconstructs the endpoint by adding a correction scaled by the remaining noise. Near the endpoint, this attenuates velocity error. Velocity-weighted endpoint supervision also improves X recovery; the low-noise limitation above is measured for directly supervised, Pure X.</p></div>
+      <div class="finding-pair">
+        <article class="evidence-card endpoint-evidence">
+          <p class="finding-label">High noise</p>
+          <h3>X recovers more stable endpoints</h3>
+          <p class="evidence-value">120.74×</p>
+          <p>On StarVLA Clean, endpoints reconstructed from V have 120.74 times the variance of X-predicted endpoints. X is more stable across all six policy and split settings.</p>
+        </article>
+        <article class="evidence-card velocity-evidence">
+          <p class="finding-label">Near-clean actions</p>
+          <h3>V makes a useful correction</h3>
+          <p class="evidence-value">0.334×</p>
+          <p>On StarVLA Randomized at σ = 0.01, V leaves 0.334 times the input mean squared error. Pure X leaves 52.1 times the input error.</p>
+        </article>
+      </div>
+      <div class="residual-explanation">
+        <h3>Why V helps near the endpoint</h3>
+        <span class="equation" aria-label="Velocity-induced endpoint error is sigma times the velocity prediction error.">x̂<sub>V</sub> − <i>x</i> = σ(v̂ − <i>v</i>)</span>
+        <p>The remaining noise σ scales the velocity prediction error. As σ approaches zero, that error has a smaller effect on the reconstructed endpoint. The low-noise comparison above uses Pure X, with direct endpoint supervision.</p>
+      </div>
       <details class="research-detail"><summary>How the noise probes are measured <span aria-hidden="true">+</span></summary><div class="detail-body"><p>Each probe uses one network evaluation, with conditions and checkpoints fixed. The study uses 2,004 matched observation anchors across 12 tasks per split and eight matched noise draws per anchor, on Clean and Randomized scenes for StarVLA, FastWAM, and LiLa-WAM Full. It measures endpoint variance and reconstruction error; the preceding budget sweep measures closed-loop task success.</p></div></details>
-      <p class="research-transition">These measurements reveal complementary roles: stable endpoint recovery at high noise and velocity-based refinement near clean actions.</p>
+      <p class="research-transition">This suggests using X to recover the action from heavy noise, then V to refine it near the endpoint.</p>
     </div></section>
 
     <section class="method-band" id="method" aria-labelledby="method-title"><div class="container paper-section">
       <div class="section-heading"><p class="section-kicker">From the observations to a policy</p><h2 id="method-title">UniVEP: learning both predictions.</h2></div>
       <p class="section-intro">UniVEP brings endpoint and velocity prediction into a shared action network. Training supervises both modes; each inference step evaluates the mode selected for the current noise level.</p>
       <figure class="paper-figure method-figure">
-      <button class="image-button" data-zoom="assets/figures/fig04_univep_overview.pdf" data-caption="the UniVEP framework: joint training and noise-dependent inference" aria-label="Enlarge the UniVEP framework: joint training and noise-dependent inference">
-        <span class="pdf-page" data-pdf="assets/figures/fig04_univep_overview.pdf" role="img" aria-label="the UniVEP framework: joint training and noise-dependent inference" style="aspect-ratio:999.119/321.375"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/fig04_univep_overview.pdf" target="_blank" rel="noopener" data-caption="the UniVEP framework: joint training and noise-dependent inference">
+        <img class="figure-preview" src="assets/figures/preview/fig04_univep_overview.webp" width="2804" height="902" loading="lazy" decoding="async" alt="the UniVEP framework: joint training and noise-dependent inference">
+      </a>
       <figcaption><span class="caption-title">Joint training and noise-dependent inference.</span> The two action streams share the DiT and VLM conditioning. Their mask separates the streams; consistency aligns the clean actions implied by X and V. <a href="assets/figures/fig04_univep_overview.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/fig04_univep_overview.pdf" type="application/pdf"><a href="assets/figures/fig04_univep_overview.pdf">Open the original PDF</a></object></noscript>
     </figure>
       <div class="method-explainer"><div class="prose"><h3>Joint supervision and consistency</h3><p>A mode embedding selects X or V in the shared network. Both see the same noisy action, noise level, and policy conditions. Velocity and endpoint regression train each output; consistency aligns the endpoint predicted by X with the endpoint reconstructed from V.</p><p>UniVEP uses a bounded velocity-weighted endpoint loss. UniVEP–X uses a flat endpoint loss; both retain velocity supervision and the same consistency objective. The weighting interacts with FastWAM’s velocity-pretrained components.</p></div><div class="mode-selector">
         <div class="selector-heading"><h3>A noise-aware switch</h3><span>σ* = 0.5</span></div>
@@ -160,11 +187,10 @@
       </div>
       <div class="figure-heading"><h3>Success across inference budgets</h3><span>Original paper curves</span></div>
       <figure class="paper-figure nfe-paper-figure" id="joint-nfe-figure">
-      <button class="image-button" data-zoom="assets/figures/fig05_univep_nfe.pdf" data-caption="success across inference budgets in the original paper" aria-label="Enlarge success across inference budgets in the original paper">
-        <span class="pdf-page" data-pdf="assets/figures/fig05_univep_nfe.pdf" role="img" aria-label="success across inference budgets in the original paper" style="aspect-ratio:432.0/129.6"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/fig05_univep_nfe.pdf" target="_blank" rel="noopener" data-caption="success across inference budgets in the original paper">
+        <img class="figure-preview" src="assets/figures/preview/fig05_univep_nfe.webp" width="2802" height="841" loading="lazy" decoding="async" alt="success across inference budgets in the original paper">
+      </a>
       <figcaption>The original curves include the three single-target recipes, UniVEP, and UniVEP–X where reported. One- and two-call gains come from the jointly trained endpoint predictor; later evaluations can use velocity refinement, depending on the policy’s time grid. <a href="assets/figures/fig05_univep_nfe.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/fig05_univep_nfe.pdf" type="application/pdf"><a href="assets/figures/fig05_univep_nfe.pdf">Open the original PDF</a></object></noscript>
     </figure>
             <details class="research-detail numerical-detail"><summary>Numerical results and evaluation settings <span aria-hidden="true">+</span></summary>
         <div class="detail-body">
@@ -189,11 +215,10 @@
       </figure>
       <div class="robot-layout">
         <figure class="paper-figure robot-figure">
-      <button class="image-button" data-zoom="assets/figures/real_robot_img.pdf" data-caption="the real-robot setup and three manipulation tasks" aria-label="Enlarge the real-robot setup and three manipulation tasks">
-        <span class="pdf-page" data-pdf="assets/figures/real_robot_img.pdf" role="img" aria-label="the real-robot setup and three manipulation tasks" style="aspect-ratio:772.68/144.96"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span>
-      </button>
+      <a class="image-button" href="assets/figures/real_robot_img.pdf" target="_blank" rel="noopener" data-caption="the real-robot setup and three manipulation tasks">
+        <img class="figure-preview" src="assets/figures/preview/real_robot_img.webp" width="2801" height="526" loading="lazy" decoding="async" alt="the real-robot setup and three manipulation tasks">
+      </a>
       <figcaption><span class="caption-title">Real-world setup and three dual-arm tasks.</span> (a) ARX A7 and RealSense D405. (b) Drawer Cube Place. (c) Pick Two Cube. (d) Grab Stick. <a href="assets/figures/real_robot_img.pdf" target="_blank" rel="noopener">Original PDF</a></figcaption>
-      <noscript><object class="pdf-noscript" data="assets/figures/real_robot_img.pdf" type="application/pdf"><a href="assets/figures/real_robot_img.pdf">Open the original PDF</a></object></noscript>
     </figure>
         <div class="robot-results"><div class="robot-summary"><div class="robot-stat"><span class="stat teal"><span class="stat-number" data-count="58.67" data-decimals="2">58.67</span><span>%</span></span><p>Mean real-robot success<br><strong>+9.3 pp</strong> over the strongest single-target baseline</p></div><div class="robot-result-copy"><h3>Gains on all three tasks.</h3><p class="robot-result-note">The largest gain is on Drawer Cube Place: 38% to 52%. Grab Stick improves from 76% to 84%, and Pick Two Cube from 34% to 40%.</p><p class="small-note">50 demonstrations per task · 20,000 joint updates · four Euler steps / four network calls · same action interface and controller.</p></div></div><details class="research-detail robot-table-detail"><summary>Exact success rates <span aria-hidden="true">+</span></summary><div class="detail-body"><div class="table-scroll"><table class="results-table robot-table"><caption class="sr-only">StarVLA real-robot success rates in percent</caption><thead><tr><th scope="col">Recipe</th><th scope="col">Drawer<br>Cube Place</th><th scope="col">Pick<br>Two Cube</th><th scope="col">Grab<br>Stick</th><th scope="col">Mean</th></tr></thead><tbody><tr><th scope="row">V</th><td>24</td><td>32</td><td>38</td><td>31.33</td></tr><tr><th scope="row">X</th><td>34</td><td>34</td><td>46</td><td>38.00</td></tr><tr><th scope="row">X–V</th><td>38</td><td>34</td><td>76</td><td>49.33</td></tr><tr class="ours-row"><th scope="row">UniVEP</th><td>52</td><td>40</td><td>84</td><td>58.67</td></tr></tbody></table></div></div></details></div>
       </div>
@@ -243,6 +268,6 @@
     </section>
   </main>
   <footer class="site-footer container"><a href="#top" class="brand" aria-label="Back to top"><img src="assets/logos/univep.png" alt="UniVEP" width="1230" height="294"></a><p>Unifying Velocity and Endpoint Prediction for Robot Manipulation</p><a href="#top">Back to top</a></footer>
-  <dialog id="figure-dialog" aria-labelledby="dialog-title"><div class="dialog-toolbar"><h2 id="dialog-title">Paper figure</h2><div><a id="dialog-original" href="assets/figures/teaser.pdf" target="_blank" rel="noopener">Open original PDF</a><button id="close-dialog" type="button" aria-label="Close enlarged figure">×</button></div></div><div class="dialog-pdf-wrap"><span class="pdf-page" id="dialog-pdf"><canvas aria-hidden="true"></canvas><span class="pdf-status">Loading figure…</span></span></div><p class="dialog-hint">Pinch to zoom on touch devices · Esc to close</p></dialog>
+  <dialog id="figure-dialog" aria-labelledby="dialog-title"><div class="dialog-toolbar"><h2 id="dialog-title">Paper figure</h2><div><a id="dialog-original" href="assets/figures/teaser.pdf" target="_blank" rel="noopener">Open original PDF</a><button id="close-dialog" type="button" aria-label="Close enlarged figure">×</button></div></div><div class="dialog-image-wrap"><img id="dialog-image" alt=""></div><p class="dialog-hint">Pinch to zoom on touch devices · Esc to close</p></dialog>
 </body>
 </html>

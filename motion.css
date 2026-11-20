@@ -3,11 +3,11 @@
 .chart-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:19px}
 .chart-header h3{font:700 24px/1.35 var(--serif);letter-spacing:-.2px}
 .chart-subtitle{font-size:14px;color:var(--muted);margin-top:3px;line-height:1.55}
-.replay-button{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;border:1px solid #dce2e9;border-radius:4px;padding:6px 10px;background:#fff;font:12px/1.4 var(--sans);color:#59677a;white-space:nowrap}
+.replay-button{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;border:1px solid #dce2e9;border-radius:4px;padding:6px 10px;background:#fff;font:12px/1.4 var(--sans);color:var(--ink);white-space:nowrap}
 .replay-button:hover{border-color:#a7b7cc;color:var(--ink);background:#fafbfd}
 .replay-button svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .chart-legend{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:9px 24px;margin:0 0 20px;font:14px/1.5 var(--serif)}
-.chart-legend button,.chart-legend>span{display:inline-flex;align-items:center;gap:8px;padding:3px 0;border:0;background:none;font:inherit;color:#344359;white-space:nowrap}
+.chart-legend button,.chart-legend>span{display:inline-flex;align-items:center;gap:8px;padding:3px 0;border:0;background:none;font:inherit;color:var(--ink);white-space:nowrap}
 .chart-legend button[aria-pressed=false]{opacity:.35}
 .chart-legend button:hover{color:var(--ink)}
 .legend-line{position:relative;display:inline-block;width:21px;height:2px;background:var(--series-color);flex-shrink:0}
@@ -21,8 +21,8 @@
 .line-chart:focus-visible{outline:2px solid #9bb5dc;outline-offset:4px}
 .chart-gridline{stroke:#e3e8ee;stroke-width:1;vector-effect:non-scaling-stroke}
 .chart-axis{stroke:#a5b2c3;stroke-width:1;vector-effect:non-scaling-stroke}
-.chart-tick{font:14px var(--serif);fill:#657389;font-variant-numeric:tabular-nums}
-.chart-axis-title{font:14px var(--serif);fill:#46556a}
+.chart-tick{font:14px var(--serif);fill:var(--ink);font-variant-numeric:tabular-nums}
+.chart-axis-title{font:14px var(--serif);fill:var(--ink)}
 .data-line{fill:none;stroke:var(--series-color);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .series-u .data-line{stroke-width:2.8}
 .data-point{fill:var(--series-color);stroke:#fff;stroke-width:1.1;vector-effect:non-scaling-stroke}
@@ -31,7 +31,7 @@
 .cursor-point{fill:#fff;stroke:var(--series-color);stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:none}
 .chart-tooltip{position:absolute;z-index:5;pointer-events:none;min-width:190px;max-width:calc(100% - 16px);padding:10px 12px;background:#fffffff7;border:1px solid #d8e0e9;border-radius:4px;box-shadow:0 4px 18px #172c4610;color:var(--ink);font:13px/1.55 var(--serif);font-variant-numeric:tabular-nums;backdrop-filter:blur(5px)}
 .chart-tooltip[hidden]{display:none}
-.tooltip-heading{display:block;margin-bottom:5px;color:#46566e;font:600 11px/1.5 var(--sans)}
+.tooltip-heading{display:block;margin-bottom:5px;color:var(--ink);font:600 11px/1.5 var(--sans)}
 .tooltip-row{display:grid;grid-template-columns:7px 1fr auto;align-items:center;gap:8px;min-width:172px}
 .tooltip-dot{width:6px;height:6px;background:var(--series-color);border-radius:50%}
 .tooltip-row strong{margin-left:15px;font-weight:600}
@@ -48,17 +48,17 @@
 .metric-panel{border-top:1px solid var(--line);padding-top:15px;min-width:0}
 .metric-heading{display:flex;align-items:baseline;justify-content:space-between;gap:15px;margin-bottom:15px}
 .metric-heading h4{font:700 19px/1.4 var(--serif);margin:0}
-.metric-gain{font:italic 600 24px/1.2 var(--serif);color:#132235;letter-spacing:-.3px;white-space:nowrap}
+.metric-gain{font:italic 600 24px/1.2 var(--serif);color:var(--ink);letter-spacing:-.3px;white-space:nowrap}
 .metric-gain small{font:13px var(--serif);letter-spacing:0;margin-left:3px}
 .efficiency-plot{display:block;width:100%;height:auto;max-width:440px;margin:auto;overflow:visible}
 .paper-gridline{stroke:#325395;stroke-opacity:.42;stroke-width:.8;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
 .paper-axis,.paper-tickmark{fill:none;stroke:#111;stroke-width:1.5;stroke-linejoin:miter;vector-effect:non-scaling-stroke}
 .paper-axis-tip{fill:#111}
-.paper-tick{font:17px var(--serif);fill:#20232a;font-variant-numeric:tabular-nums}
-.paper-unit{font:16px var(--serif);fill:#333942}
+.paper-tick{font:17px var(--serif);fill:var(--ink);font-variant-numeric:tabular-nums}
+.paper-unit{font:16px var(--serif);fill:var(--ink)}
 .paper-bar{stroke:#111;stroke-width:1.2;stroke-linejoin:miter;vector-effect:non-scaling-stroke}
-.paper-category{font:18px var(--serif);fill:#171b23}
-.paper-budget{font:14px var(--serif);fill:#596273}
+.paper-category{font:18px var(--serif);fill:var(--ink)}
+.paper-budget{font:14px var(--serif);fill:var(--ink)}
 .legend-bar{display:inline-block;width:28px;height:20px;flex-shrink:0;vertical-align:middle}
 .tooltip-bar-row{grid-template-columns:22px 1fr auto}
 .tooltip-bar-row .legend-bar{width:22px;height:17px}
@@ -68,7 +68,7 @@
 .robot-chart-panel h4{margin:0;text-align:center;font:600 15px/1.5 var(--sans);letter-spacing:0}
 .robot-chart{display:block;width:100%;height:auto;overflow:visible}
 .robot-bar:focus-visible{outline:2px solid #325395;outline-offset:3px}
-.bar-number{font:italic 700 20px var(--serif);fill:#171b23;font-variant-numeric:tabular-nums;text-anchor:middle}
+.bar-number{font:italic 700 20px var(--serif);fill:var(--ink);font-variant-numeric:tabular-nums;text-anchor:middle}
 .robot-chart .bar-number{font-size:18px}
 .robot-chart .paper-category{font-size:16px}
 .robot-chart .paper-tick{font-size:16px}
@@ -81,7 +81,7 @@
 .robot-results .robot-table-detail .detail-body{padding-bottom:9px}
 .robot-results{display:block}
 .robot-stat{margin-top:4px;padding-bottom:20px;margin-bottom:13px}
-.robot-result-note{font-size:17px;color:#4e596b;line-height:1.65;margin:0 0 17px}
+.robot-result-note{font-size:17px;color:var(--ink);line-height:1.65;margin:0 0 17px}
 .motion-ready .data-line{stroke-dasharray:1;stroke-dashoffset:1}
 .motion-ready.is-in .data-line{stroke-dashoffset:0;transition:stroke-dashoffset 1.55s cubic-bezier(.45,.05,.25,1) var(--delay,0ms)}
 .motion-ready .data-point{opacity:0}
