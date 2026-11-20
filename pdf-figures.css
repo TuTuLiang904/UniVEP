@@ -1,0 +1,13 @@
+.pdf-page{position:relative;display:block;width:100%;overflow:hidden;background:#fff;isolation:isolate}
+.pdf-page canvas{display:block;width:100%;height:100%;opacity:0}
+.pdf-page[data-pdf-state=rendered] canvas{opacity:1;transition:opacity .2s ease}
+.pdf-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#718094;font:14px/1.5 var(--serif);padding:20px;text-align:center;background:#fbfcfd}
+.pdf-page[data-pdf-state=rendered] .pdf-status{display:none}
+.pdf-page[data-pdf-state=error] .pdf-status{background:#f7f9fb}
+.pdf-noscript{display:block;width:100%;height:450px;border:0}
+.dialog-pdf-wrap{overflow:auto;max-height:76vh;padding:22px;touch-action:pan-x pan-y pinch-zoom}
+.dialog-pdf-wrap .pdf-page{min-width:750px}
+@media(max-width:760px){.dialog-pdf-wrap{padding:15px}}
+@media(max-width:520px){.dialog-pdf-wrap .pdf-page{min-width:850px}}
+@media(prefers-reduced-motion:reduce){.pdf-page canvas{transition:none!important}}
+@media print{.pdf-status{display:none}.pdf-page canvas{opacity:1!important}}

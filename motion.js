@@ -22,7 +22,8 @@
   }
   const barFill=(prefix,k)=>barStyles[k].spacing?`url(#${prefix}-${k})`:barStyles[k].fill;
   const barSwatch=(prefix,k)=>`<svg class="legend-bar" viewBox="0 0 28 20" aria-hidden="true">${barDefs(prefix,[k])}<rect x="1" y="2" width="26" height="16" fill="${barFill(prefix,k)}" stroke="#111" stroke-width="1.1"/></svg>`;
-  const order = ['v','x','xv','u','ux'];
+  // The investigation precedes the method: only the three single-target recipes.
+  const order = ['v','x','xv'];
   const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
   document.documentElement.dataset.motionPreference=motionQuery.matches?'reduce':'no-preference';
   const timers = new WeakMap();
@@ -100,7 +101,7 @@
   const legend=$('#nfe-legend');
   legend.innerHTML=order.map(k=>`<button type="button" data-series="${k}" aria-pressed="true" aria-label="Show ${names[k]}" style="--series-color:${colors[k]}"><i class="legend-line" aria-hidden="true"></i>${names[k]}</button>`).join('');
   const nfePanels=[];
-  ['star','lila','fast','scratch'].forEach(key => {
+  ['star','lila'].forEach(key => {
     const article=document.createElement('article');
     article.className='nfe-panel'; article.dataset.model=key;
     article.innerHTML=`<h4 id="chart-title-${key}">${data.models[key].name}</h4><div class="chart-surface"><svg class="line-chart" tabindex="0" role="img" aria-labelledby="chart-title-${key}" aria-describedby="nfe-interaction-hint"></svg><div class="chart-tooltip" role="tooltip" hidden></div><span class="sr-only chart-announcement" role="status" aria-live="polite"></span></div>`;
@@ -115,7 +116,7 @@
     const ranges={star:[30,70],lila:[60,90],fast:[30,80],scratch:[40,80]};
     const [min,max]=ranges[key],model=data.models[key];
     const keys=order.filter(k=>model.series[k]);
-    const measuredIndices=data.budgets.map((_,i)=>i).filter(i=>keys.some(k=>model.series[k][i]!=null));
+    const measuredIndices=data.budgets.map((_,i)=>i).filter(i=>data.budgets[i]!==10&&keys.some(k=>model.series[k][i]!=null));
     const x=n=>L+Math.log2(n)/4*(R-L), y=v=>B-(v-min)/(max-min)*(B-T);
     svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
     svg.style.setProperty('--axis-font',compact?'18px':'14px');
@@ -127,7 +128,7 @@
     measuredIndices.forEach(i => {const n=data.budgets[i];html+=`<line class="chart-axis" x1="${x(n)}" x2="${x(n)}" y1="${B}" y2="${B+5}"/><text class="chart-tick" x="${x(n)}" y="${B+21}" text-anchor="middle">${n}</text>`;});
     html+=`<text class="chart-axis-title" x="${(L+R)/2}" y="${H-5}" text-anchor="middle">Function evaluations (NFE, log₂ scale)</text>`;
     keys.forEach((k,si) => {
-      const values=model.series[k],points=values.map((v,i)=>v==null?null:[x(data.budgets[i]),y(v),v,i]).filter(Boolean);
+      const values=model.series[k],points=values.map((v,i)=>v==null||data.budgets[i]===10?null:[x(data.budgets[i]),y(v),v,i]).filter(Boolean);
       const path=points.map((p,i)=>`${i?'L':'M'}${p[0].toFixed(3)},${p[1].toFixed(3)}`).join(' ');
       html+=`<g class="chart-series series-${k}${hidden.has(k)?' series-hidden':''}" data-series="${k}" style="--series-color:${colors[k]}" clip-path="url(#nfe-clip-${key})"><path class="data-line" pathLength="1" d="${path}" style="--delay:${si*45}ms"/>`;
       points.forEach(p => {html+=`<circle class="data-point" cx="${p[0]}" cy="${p[1]}" r="${k==='u'?3.9:3.2}" data-nfe="${data.budgets[p[3]]}" data-value="${p[2]}" style="--delay:${Math.round(100+Math.log2(data.budgets[p[3]])/4*1450+si*45)}ms"><title>${names[k]}, NFE ${data.budgets[p[3]]}: ${p[2].toFixed(2)}%</title></circle>`;});
@@ -184,7 +185,7 @@
     };
   }
   nfePanels.forEach(panel=>cleanups.push(()=>{if(document.activeElement!==$('svg',panel))$('.chart-surface',panel)._closeTip?.();}));
-  const canHide=k=>Object.values(data.models).every(model=>Object.keys(model.series).some(s=>s!==k&&!hidden.has(s)));
+  const canHide=k=>['star','lila'].every(key=>order.some(s=>s!==k&&!hidden.has(s)&&data.models[key].series[s]));
   $$('button',legend).forEach(button=>button.addEventListener('click',()=>{
     const k=button.dataset.series;
     if(hidden.has(k))hidden.delete(k);else if(canHide(k))hidden.add(k);

@@ -323,3 +323,178 @@ window.UNIVEP_DATA = {
     "latencyReductionPercent": 77.1
   }
 };
+
+// Original manuscript native-budget table, evaluated within each policy.
+window.UNIVEP_DATA.nativeBenchmarks = {
+  "star": {
+    "name": "StarVLA",
+    "nfe": 4,
+    "rows": [
+      {
+        "key": "v",
+        "recipe": "V",
+        "values": [
+          97.45,
+          75.7,
+          43.04,
+          7.04
+        ]
+      },
+      {
+        "key": "x",
+        "recipe": "X",
+        "values": [
+          98.15,
+          78.2,
+          42.8,
+          8.16
+        ]
+      },
+      {
+        "key": "xv",
+        "recipe": "X\u2013V",
+        "values": [
+          98.45,
+          79.6,
+          58.02,
+          10.84
+        ]
+      },
+      {
+        "key": "u",
+        "recipe": "UniVEP",
+        "values": [
+          97.75,
+          80.4,
+          61.56,
+          13.68
+        ]
+      }
+    ],
+    "note": "UniVEP improves LIBERO-Plus and both RoboTwin splits. Standard LIBERO is near saturation; X\u2013V retains the highest StarVLA score there. RoboTwin Randomized evaluates transfer from Clean-trained weights."
+  },
+  "lila": {
+    "name": "LiLa-WAM Full",
+    "nfe": 10,
+    "rows": [
+      {
+        "key": "v",
+        "recipe": "V",
+        "values": [
+          96.1,
+          52.3,
+          83.24,
+          76.32
+        ]
+      },
+      {
+        "key": "x",
+        "recipe": "X",
+        "values": [
+          96.0,
+          54.0,
+          75.04,
+          73.96
+        ]
+      },
+      {
+        "key": "xv",
+        "recipe": "X\u2013V",
+        "values": [
+          96.65,
+          55.4,
+          83.48,
+          78.28
+        ]
+      },
+      {
+        "key": "ux",
+        "recipe": "UniVEP\u2013X",
+        "values": [
+          96.7,
+          55.25,
+          83.72,
+          81.24
+        ]
+      },
+      {
+        "key": "u",
+        "recipe": "UniVEP",
+        "values": [
+          97.1,
+          58.4,
+          87.04,
+          83.04
+        ]
+      }
+    ],
+    "note": "LiLa-WAM Full uses both Clean and Randomized training demonstrations. The benchmark table reports native ten-call results."
+  },
+  "fast": {
+    "name": "FastWAM",
+    "nfe": 10,
+    "rows": [
+      {
+        "key": "v",
+        "recipe": "V",
+        "values": [
+          96.2,
+          50.4,
+          73.24,
+          2.72
+        ]
+      },
+      {
+        "key": "x",
+        "recipe": "X",
+        "values": [
+          95.45,
+          50.3,
+          65.88,
+          2.0
+        ]
+      },
+      {
+        "key": "xv",
+        "recipe": "X\u2013V",
+        "values": [
+          96.8,
+          47.3,
+          34.2,
+          1.0
+        ]
+      },
+      {
+        "key": "u",
+        "recipe": "UniVEP",
+        "values": [
+          97.25,
+          52.4,
+          57.0,
+          3.22
+        ]
+      },
+      {
+        "key": "scratch",
+        "recipe": "UniVEP (scratch action head)",
+        "values": [
+          98.38,
+          66.0,
+          56.12,
+          3.16
+        ]
+      },
+      {
+        "key": "ux",
+        "recipe": "UniVEP\u2013X",
+        "values": [
+          96.25,
+          54.7,
+          66.36,
+          3.46
+        ]
+      }
+    ],
+    "note": "Velocity-pretrained FastWAM is an exception on RoboTwin Clean: V remains strongest. Scratch resets only ActionDiT, retaining the pretrained video backbone. Native-budget scores and the step sweep use separate rollouts."
+  }
+};

@@ -15,12 +15,3 @@
 .insight-layout .prose{column-count:1}.insight-layout .lead{margin-bottom:14px}
 
 @media(max-width:520px){.coverage-divider{display:none}}
-.resource-pill.code-pill {
-  min-width: 230px;
-  padding-inline: 24px;
-  white-space: nowrap;
-}
-
-.resource-links {
-  flex-wrap: wrap;
-}

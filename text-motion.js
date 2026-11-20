@@ -2,7 +2,7 @@
   'use strict';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const targets=new Set(),played=new WeakSet(),frames=new Map();
-  const selectors=['.hero-logo','.hero h1','.authors .author-row>span','.author-notes','.affiliations p','.institution-logos img','.resource-links a','.site-header .brand','.site-header nav a','.nav-paper','main h2','main h3','main h4','main p','main figcaption','main summary','main .section-kicker','.summary-route','.chart-legend','.coverage-line','.policy-tabs','.video-heading label','.selector-heading>span','.mode-selector>label','.range-labels','.selected-mode','.robot-stat .stat','.citation-toolbar','main pre','.table-scroll','.site-footer a','.site-footer p'].join(',');
+  const selectors=['.target-definition','.path-equation','.finding-pair article','.residual-explanation','.result-highlights>div','.hero-logo','.hero h1','.authors .author-row>span','.author-notes','.affiliations p','.institution-logos img','.resource-links a','.site-header .brand','.site-header nav a','.nav-paper','main h2','main h3','main h4','main p','main figcaption','main summary','main .section-kicker','.summary-route','.chart-legend','.coverage-line','.policy-tabs','.video-heading label','.selector-heading>span','.mode-selector>label','.range-labels','.selected-mode','.robot-stat .stat','.citation-toolbar','main pre','.table-scroll','.site-footer a','.site-footer p'].join(',');
   function count(el){
     if(played.has(el))return;played.add(el);
     const value=Number(el.dataset.count),decimals=Number(el.dataset.decimals||0);
