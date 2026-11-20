@@ -1,0 +1,4 @@
+@hyzyla/pdfium 3.0.0
+pdfium-lib 8046d / PDFium chromium/8046
+https://github.com/hyzyla/pdfium
+Wrapper: MIT; see THIRD_PARTY_NOTICES.md for the native components.

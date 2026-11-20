@@ -1,0 +1,50 @@
+{
+  "fig01_action_geometry_all_metrics.pdf": {
+    "sha256": "fba4f1a6e963345fe2d514c3605a9425eb0efac2c81b7c3aa20aa00cc69a60a4",
+    "pages": 1,
+    "width": 470.03,
+    "height": 244.3
+  },
+  "fig02_noise_regimes_arxiv.pdf": {
+    "sha256": "5a4812098b8c4acf12d54d3a5f8a409a987fe53a37dfaddba0eb94e0473a0c60",
+    "pages": 1,
+    "width": 814.79,
+    "height": 250.21
+  },
+  "fig04_univep_overview.pdf": {
+    "sha256": "e1c5ecf650c2fd111d68ea1ffe922fd8e99ef055e5474fad22c52947a84ec731",
+    "pages": 1,
+    "width": 999.119,
+    "height": 321.375
+  },
+  "fig05_univep_nfe.pdf": {
+    "sha256": "6a3d80d09318d4076bfc797056e3db9338fe329dfb2d97a046e2f3949597717f",
+    "pages": 1,
+    "width": 432.0,
+    "height": 129.6
+  },
+  "fig06_geometry_diagnostics.pdf": {
+    "sha256": "3afb2751771eeec6d0e1649736845b0ef586c67b167d53e3f2c11bd8064f45b1",
+    "pages": 1,
+    "width": 816.82,
+    "height": 278.06
+  },
+  "figure2.pdf": {
+    "sha256": "0f9c4cd8de373a6252b09e17abf740a79eccf6960528088d44f7a34464322415",
+    "pages": 1,
+    "width": 747.71,
+    "height": 453.56
+  },
+  "real_robot_img.pdf": {
+    "sha256": "fa9390217d3d2d465e39522e626567517b97bd1fd0060aa5496b23f74fbe7fed",
+    "pages": 1,
+    "width": 772.68,
+    "height": 144.96
+  },
+  "teaser.pdf": {
+    "sha256": "e64d6bd29d0eb8b5f085bc11bfa253a9e59c56e9cee53530f0a6c883359fcf4b",
+    "pages": 1,
+    "width": 1016.75,
+    "height": 540.0
+  }
+}
