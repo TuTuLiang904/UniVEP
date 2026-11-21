@@ -3,6 +3,10 @@
 .resource-pill.code-pill{min-width:230px;padding-inline:24px;white-space:nowrap}
 .coming-soon{font-weight:400;opacity:.85}
 .overview{padding-bottom:8px}
+.project-video{width:min(960px,100%);margin:clamp(28px,4vw,48px) auto 0}
+.project-video h2{font:700 1.375rem/1.3 var(--serif);letter-spacing:0}
+.project-video video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0f172a;border:1px solid var(--line)}
+.project-video video:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 #prediction-targets{padding-top:70px}
 .target-definitions{display:grid;grid-template-columns:1fr 1fr;gap:55px;margin-top:37px}
 .target-definition{display:grid;grid-template-columns:44px 1fr;gap:20px;border-top:1px solid var(--line);padding-top:24px}
